@@ -14,7 +14,7 @@ progress.start()
 ssh = paramiko.SSHClient()
 ssh.load_system_host_keys()
 
-# TODO: Change the next five lines to match your needs.
+# TODO: Change the next six lines to match your needs.
 GITLAB_HOST = 'https://gitlab.com'
 GITLAB_TOKEN = 'PersonalAccessToken_api'
 GITBLIT_HOST = 'gitblit'  # Change: Gitblit host address
@@ -48,7 +48,7 @@ for project in progress.track(gl.projects.list(all=True)):
     with open(f'exports/{project.path}.tgz', 'wb') as f:
         export.download(streamed=True, action=f.write)
 
-    # progress.log(f'Preparing {project.name} for re-import')
+    progress.log(f'Preparing {project.name} for re-import')
     with tarfile.open(f'exports/{project.path}.tgz', 'r:gz') as t:
         progress.log(f'{project.name}: Extracting ./project.bundle...')
         try:
