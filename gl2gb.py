@@ -28,6 +28,9 @@ GITBLIT_URI = f'ssh://{GITBLIT_USER}@{GITBLIT_HOST}:{GITBLIT_PORT}'
 gl = gitlab.Gitlab(GITLAB_HOST, private_token=GITLAB_TOKEN)
 ssh.connect(GITBLIT_HOST, port=GITBLIT_PORT)
 
+os.makedirs('./exports', exist_ok=True)
+os.makedirs('./repos', exist_ok=True)
+
 progress.log('Fetching project list...')
 for project in progress.track(gl.projects.list(all=True)):
     if os.path.exists(f'repos/{project.path}.done'):
